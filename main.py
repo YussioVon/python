@@ -52,17 +52,18 @@ if __name__ == "__main__":
 import paramiko, getpass  # getpass是隐藏密码
 
 
-def ssh_connect(password):
-    host_ip = '121.4.86.9'
+def ssh_connect(host_ip,password):
     user_name = 'root'
     host_port = '22'
 
     # 待执行的命令
-    sed_command = "ls"
-    ls_command = "rm -rf test"
+    #sed_command = "ls"
+    #ls_command = "rm -rf test"
 
     # 注意：依次执行多条命令时，命令之间用分号隔开
-    command = sed_command + ";" + ls_command
+    #command = sed_command + ";" + ls_command
+
+
 
     # SSH远程连接
     ssh = paramiko.SSHClient()  # 创建sshclient
@@ -80,6 +81,8 @@ def ssh_connect(password):
 
 
 if __name__ == '__main__':
-    pwd = getpass.getpass("请输入密码：")
-    result = ssh_connect(pwd)
+    host_ip = input("请输入ip:\n")
+    pwd = getpass.getpass("请输入密码:\n")
+    command = input("请输入命令:\n")
+    result = ssh_connect(host_ip,pwd)
     print(result)
