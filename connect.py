@@ -3,7 +3,7 @@
 import paramiko
 import re
 from time import sleep
-
+import getpass
 
 # 定义一个类，表示一台远端linux主机
 class Linux(object):
@@ -53,7 +53,7 @@ class Linux(object):
     def send(self, cmd):
         cmd += '\r'
         # 通过命令执行提示符来判断命令是否执行完成
-        p = re.compile(r']$')
+        p = re.compile(r']#')
 
         result = ''
         # 发送要执行的命令
@@ -70,7 +70,10 @@ class Linux(object):
 
 
 if __name__ == '__main__':
-    host = Linux('121.4.86.9', 'root', 'Fyx123...')
+    host_ip = input("请输入主机ip:\n")
+    pwd = getpass.getpass("请输入密码:\n")
+    host = Linux(host_ip, 'root', pwd)
+
     host.connect()
     host.send('ls')
     host.close()
