@@ -4,6 +4,7 @@ import paramiko
 import re
 from time import sleep
 import getpass
+import time
 
 # 定义一个类，表示一台远端linux主机
 class Linux(object):
@@ -58,14 +59,16 @@ class Linux(object):
         result = ''
         # 发送要执行的命令
         self.chan.send(cmd)
+
         # 回显很长的命令可能执行较久，通过循环分批次取回回显
         while True:
+            print('开始时间：'+time.ctime())
             sleep(2)
             ret = self.chan.recv(65535)
             ret = ret.decode('utf-8')
             result += ret
             if p.search(ret):
-                print(result)
+                print('执行时间：' + time.ctime()+'\n'+result)
                 return (result)
 
 
@@ -76,5 +79,5 @@ if __name__ == '__main__':
 
     host.connect()
    # host.send('cd /home;sh dbstop.sh;sh dbstart.sh')
-    host.send('cd /home;pwd')
+    host.send('cd /home;pwd;ll')
     host.close()
