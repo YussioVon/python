@@ -7,7 +7,7 @@ import getpass
 
 # 定义一个类，表示一台远端linux主机
 class Linux(object):
-    # 通过IP, 用户名，密码，超时时间初始化一个远程Linux主机
+    # 通过IP, 用户名，密码，超时时间,初始化一个远程Linux主机
     def __init__(self, ip, username, password, timeout=30):
         self.ip = ip
         self.username = username
@@ -53,7 +53,7 @@ class Linux(object):
     def send(self, cmd):
         cmd += '\r'
         # 通过命令执行提示符来判断命令是否执行完成
-        p = re.compile(r']#')
+        p = re.compile(r']#|]$')
 
         result = ''
         # 发送要执行的命令
@@ -75,5 +75,6 @@ if __name__ == '__main__':
     host = Linux(host_ip, 'root', pwd)
 
     host.connect()
-    host.send('ls')
+   # host.send('cd /home;sh dbstop.sh;sh dbstart.sh')
+    host.send('cd /home;pwd')
     host.close()
