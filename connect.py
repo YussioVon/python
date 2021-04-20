@@ -5,9 +5,13 @@ import re
 from time import sleep
 import getpass
 import time
-
+import os
+import socket
+from os import path
+logFile = '/usr/log.txt'
 # 定义一个类，表示一台远端linux主机
 class Linux(object):
+
     # 通过IP, 用户名，密码，超时时间,初始化一个远程Linux主机
     def __init__(self, ip, username, password, timeout=30):
         self.ip = ip
@@ -71,13 +75,56 @@ class Linux(object):
                 print('执行时间：' + time.ctime()+'\n'+result)
                 return (result)
 
+def getExcuteInfo():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
 
+        '''
+            f = open(logFile, 'a+')
+            f.write('操作IP:' + ip + '执行时间:' + time.ctime())
+            f.close()
+        else:
+            f = open(logFile,'a+')
+            f.write('操作IP:'+ip+'执行时间:'+time.ctime())
+            f.close()
+        
+        if not os.path.exists(log):
+            os.system(r'touch {}'.format(log))
+            print('新建成功')
+            f = open(log,'w')
+            f.write('操作IP:'+ip+'执行时间:'+time.ctime())
+            f.close()
+       
+        else:
+            with open(log,'a+') as f:
+                f.write('操作IP:' + ip + '执行时间:' + time.ctime())
+                print('追加成功')
+            #f.close()
+        '''
+    finally:
+        s.close()
+    return ip
+def uploadFiles():
+    if path.exists(logFile):
+        print('文件已经存在')
+    else:
+        print('文件不存在！')
+        with open('C:\\Users\\Rain Sunny\\Desktop\\log.txt','a+') as f:
+            f.write('操作IP:' + getExcuteInfo() + '执行时间:' + time.ctime())
 if __name__ == '__main__':
-    host_ip = input("请输入主机ip:\n")
-    pwd = getpass.getpass("请输入密码:\n")
+    #host_ip = input("请输入主机ip:\n")
+    #pwd = getpass.getpass("请输入密码:\n")
+    host_ip='121.4.86.9'
+    pwd = 'Fyx123...'
+
     host = Linux(host_ip, 'root', pwd)
 
     host.connect()
    # host.send('cd /home;sh dbstop.sh;sh dbstart.sh')
-    host.send('cd /home;pwd;ll')
+    host.send('pwd')
     host.close()
+    print(getExcuteInfo())
+    uploadFiles()
+    #getExcuteInfo()
