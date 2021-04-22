@@ -66,14 +66,13 @@ class Linux(object):
 
         # 回显很长的命令可能执行较久，通过循环分批次取回回显
         while True:
-            print('开始时间：'+time.ctime())
             sleep(2)
             ret = self.chan.recv(65535)
             ret = ret.decode('utf-8')
             result += ret
             if p.search(ret):
-                print('执行时间：' + time.ctime()+'\n'+result)
                 return (result)
+'''
 
 def getExcuteInfo():
     try:
@@ -81,7 +80,7 @@ def getExcuteInfo():
         s.connect(('8.8.8.8', 80))
         ip = s.getsockname()[0]
 
-        '''
+     
             f = open(logFile, 'a+')
             f.write('操作IP:' + ip + '执行时间:' + time.ctime())
             f.close()
@@ -102,10 +101,11 @@ def getExcuteInfo():
                 f.write('操作IP:' + ip + '执行时间:' + time.ctime())
                 print('追加成功')
             #f.close()
-        '''
+        
     finally:
         s.close()
     return ip
+
 def uploadFiles():
     if path.exists(logFile):
         print('文件已经存在')
@@ -113,6 +113,9 @@ def uploadFiles():
         print('文件不存在！')
         with open('C:\\Users\\Rain Sunny\\Desktop\\log.txt','a+') as f:
             f.write('操作IP:' + getExcuteInfo() + '执行时间:' + time.ctime())
+
+'''
+
 if __name__ == '__main__':
     #host_ip = input("请输入主机ip:\n")
     #pwd = getpass.getpass("请输入密码:\n")
@@ -125,6 +128,4 @@ if __name__ == '__main__':
    # host.send('cd /home;sh dbstop.sh;sh dbstart.sh')
     host.send('pwd')
     host.close()
-    print(getExcuteInfo())
-    uploadFiles()
     #getExcuteInfo()

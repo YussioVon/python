@@ -1,3 +1,4 @@
+'''
 import os
 def openfile():
     #file = r'C:/Users/Rain Sunny/Desktop/loge.txt'
@@ -6,3 +7,11 @@ def openfile():
 
 if __name__ == '__main__':
     openfile()
+'''
+
+
+lst = {}
+for i in range(0,5):
+    lst[i] = int(input())
+print(lst)
+print(max(lst.values()))
