@@ -4,7 +4,8 @@
 # @FileName : test_orc
 from PIL import Image
 import  pytesseract
-image = Image.open('C:\\Users\\Rain Sunny\\Desktop\\123.png')
-text = pytesseract.image_to_string(image)
+image = Image.open('C:\\Users\\Rain Sunny\\Desktop\\222.png')
+#text = pytesseract.image_to_string(image)
+text = pytesseract.image_to_string(image,lang="chi_sim")
 text = text.replace("“","").replace("。","")
 print(text)
