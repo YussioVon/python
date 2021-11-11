@@ -10,6 +10,7 @@ from lxml import etree
 import time
 from bs4 import BeautifulSoup
 import pandas
+
 '''
 
 url = 'https://movie.douban.com/subject/1292722/?tag=%E7%BB%8F%E5%85%B8&from=gaia_video'
